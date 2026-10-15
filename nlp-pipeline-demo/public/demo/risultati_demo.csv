@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "note": "Sostituisci questo file con i tuoi output reali in public/demo/risultati_demo.json",
+    "pipeline": "DiInfo UniPg — NLP Classification Pipeline",
+    "generatedAt": "2024-11-01T10:00:00.000Z"
+  },
+  "results": [
+    { "file": "documento_1.pdf", "category": "Natural Language Processing", "confidence": 0.94 },
+    { "file": "documento_2.pdf", "category": "Reti Neurali & Deep Learning", "confidence": 0.87 },
+    { "file": "documento_3.pdf", "category": "Basi di Dati & Knowledge Graph", "confidence": 0.81 }
+  ]
+}

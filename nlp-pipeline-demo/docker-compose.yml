@@ -1,0 +1,23 @@
+services:
+
+  # ── Produzione (build statica via nginx) ──────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # ── Sviluppo (hot reload) ─────────────────────────────
+  dev:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules        # evita di sovrascrivere node_modules con quelli host
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    profiles:
+      - dev

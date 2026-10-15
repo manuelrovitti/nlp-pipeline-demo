@@ -1,0 +1,366 @@
+/* ─── Design Tokens ─────────────────────────────────── */
+:root {
+  --blue-950: #07122E;
+  --blue-900: #0D1E4A;
+  --blue-800: #142861;
+  --blue-700: #1B3B8B;
+  --blue-500: #2D5CD4;
+  --blue-300: #6B90E8;
+  --blue-100: #E4ECFF;
+  --blue-50:  #F0F4FF;
+
+  --orange-700: #C45A0F;
+  --orange-600: #D96712;
+  --orange-500: #E8761A;
+  --orange-400: #F08B32;
+  --orange-100: #FDEEDD;
+  --orange-50:  #FFF8F2;
+
+  --surface:    #FFFFFF;
+  --bg:         #F2F5FC;
+  --border:     #D8E2F5;
+  --text-1:     #0D1E4A;
+  --text-2:     #4A5A7A;
+  --text-3:     #8A9AB8;
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  --shadow-sm:  0 1px 4px rgba(13, 30, 74, 0.07);
+  --shadow-md:  0 4px 16px rgba(13, 30, 74, 0.10);
+  --shadow-lg:  0 8px 32px rgba(13, 30, 74, 0.14);
+  --shadow-xl:  0 16px 48px rgba(13, 30, 74, 0.18);
+
+  --sidebar-w:  272px;
+  --font-head:  'Space Grotesk', sans-serif;
+  --font-body:  'Inter', sans-serif;
+}
+
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #app { height: 100%; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── App Shell ─────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Sidebar ────────────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--blue-900);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-brand {
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--orange-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+
+.brand-text { flex: 1; }
+.brand-title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+  line-height: 1.3;
+}
+.brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ─── Pipeline Nav ───────────────────────────────────── */
+.pipeline-nav {
+  flex: 1;
+  padding: 28px 24px;
+  overflow-y: auto;
+}
+
+.pipeline-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 20px;
+}
+
+.pipeline-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  padding-bottom: 0;
+}
+
+.step-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-head);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.step-connector {
+  width: 2px;
+  height: 32px;
+  margin: 4px auto;
+  transition: background 0.3s ease;
+}
+
+.step-info { padding-top: 4px; }
+.step-num {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.step-label {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Step states */
+.pipeline-step.is-future .step-dot {
+  background: rgba(255,255,255,0.06);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.35);
+}
+.pipeline-step.is-future .step-connector { background: rgba(255,255,255,0.08); }
+.pipeline-step.is-future .step-num { color: rgba(255,255,255,0.25); }
+.pipeline-step.is-future .step-label { color: rgba(255,255,255,0.35); }
+
+.pipeline-step.is-active .step-dot {
+  background: var(--orange-500);
+  border: 2px solid var(--orange-400);
+  color: #fff;
+  box-shadow: 0 0 0 4px rgba(232, 118, 26, 0.25);
+}
+.pipeline-step.is-active .step-connector { background: rgba(255,255,255,0.15); }
+.pipeline-step.is-active .step-num { color: var(--orange-400); }
+.pipeline-step.is-active .step-label { color: #fff; font-weight: 600; }
+
+.pipeline-step.is-done .step-dot {
+  background: rgba(232, 118, 26, 0.15);
+  border: 1.5px solid var(--orange-500);
+  color: var(--orange-400);
+}
+.pipeline-step.is-done .step-dot svg {
+  width: 14px;
+  height: 14px;
+}
+.pipeline-step.is-done .step-connector { background: var(--orange-500); }
+.pipeline-step.is-done .step-num { color: var(--orange-400); }
+.pipeline-step.is-done .step-label { color: rgba(255,255,255,0.65); }
+
+.sidebar-footer {
+  padding: 16px 24px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.22);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ─── Main Area ─────────────────────────────────────── */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.step-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 64px;
+  max-width: 860px;
+}
+
+.step-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--orange-600);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.step-header { margin-bottom: 36px; }
+.step-header h1 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 32px;
+  color: var(--blue-900);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.step-header p {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.65;
+  max-width: 560px;
+}
+
+/* ─── Step Actions ───────────────────────────────────── */
+.step-actions {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--text-3);
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--orange-500);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(232, 118, 26, 0.35);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--orange-600);
+  box-shadow: 0 6px 20px rgba(232, 118, 26, 0.45);
+  transform: translateY(-1px);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--blue-700);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover {
+  border-color: var(--blue-300);
+  background: var(--blue-50);
+  transform: translateY(-1px);
+}
+
+.btn-outline-orange {
+  background: transparent;
+  color: var(--orange-600);
+  border: 1.5px solid var(--orange-500);
+}
+.btn-outline-orange:hover {
+  background: var(--orange-50);
+  transform: translateY(-1px);
+}
+
+/* ─── Card ───────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ─── Step Transition ────────────────────────────────── */
+.step-fade-enter-active,
+.step-fade-leave-active {
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.step-fade-enter-from {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.step-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .app-shell { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+  .pipeline-nav { display: none; }
+  .step-section { padding: 32px 24px; }
+  .step-header h1 { font-size: 24px; }
+}
